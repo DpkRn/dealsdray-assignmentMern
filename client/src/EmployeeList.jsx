@@ -66,7 +66,7 @@ function EmployeeList() {
             setKeyword(e.target.value)
             handleSearch(e.target.value)
             }}/></div>
-          <button className="bg-blue-800 px-3  text-white py-1 rounded-sm mr-2" onClick={handleCreate}>
+          <button className="bg-blue-800 px-3  text-white py-2 rounded-md mr-2 hover:bg-blue-950" onClick={handleCreate}>
             Create New
           </button>
         </div>

@@ -11,10 +11,12 @@ function Login() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [isLoading,setLoading]=useState(false)
 
     const handleLogin = async (e) => {
 
         e.preventDefault();
+        setLoading(true)
         const url = login ? "http://localhost:8080/api/login" : "http://localhost:8080/api/signup"
         try {
             const response = await axios.post(url, {
@@ -26,6 +28,7 @@ function Login() {
                 alert(response.data.msg);
                 localStorage.setItem("auth", true)
                 localStorage.setItem("user",response.data.user.username)
+               
                 Authenticate();
                 navigate('/')
                }
@@ -39,10 +42,13 @@ function Login() {
                 }
 
             }
+            
 
         } catch (error) {
            const message=error.response?.data?.msg||"server error"
            alert(message)
+        }finally{
+            setLoading(false);
         }
 
 
@@ -60,7 +66,7 @@ function Login() {
                     <input type="password" name="" required="" value={password} onChange={(e) => setPassword(e.target.value)} />
                     <label>Password</label>
                 </div>
-                <button type='submit' className='bg-slate-200 px-4 py-1 rounded-md' >{`${login ? "Login" : "Signup"}`}</button>
+                <button type='submit' className='bg-slate-200 px-4 py-1 rounded-md hover:bg-slate-400' >{`${login ? (isLoading?"...":"Login") :(isLoading)?"...":"Signup"}`}</button>
                 <div className='mt-2'>
                     {login ? <p>New User? <span className='underline text-blue-600 cursor-pointer' onClick={() => setLogin(false)}>click here</span></p> : <p>Already have an Account? <span className='underline text-blue-600 cursor-pointer' onClick={() => setLogin(true)}>click here</span></p>}
                 </div>

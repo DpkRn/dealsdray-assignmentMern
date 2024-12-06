@@ -18,6 +18,7 @@ function AddEmployee() {
   };
 
   const [employeeData, setEmployeeData] = useState(initialData);
+  const [isLoading,setLoading]=useState(false);
 
   useEffect(() => {
     if (isEdit) {
@@ -48,7 +49,7 @@ function AddEmployee() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(employeeData)
+    setLoading(true)
     try {
       const url = isEdit
         ? `http://localhost:8080/api/edit-employee/${employeeData._id}`
@@ -70,6 +71,8 @@ function AddEmployee() {
       console.error("Error:", error);
       const message=error.response?.data?.msg||"Error while submitting the form"
       alert(message);
+    }finally{
+      setLoading(false)
     }
   };
 
@@ -242,7 +245,7 @@ function AddEmployee() {
         </div>
 
         <button className="bg-blue-800 text-white px-4 py-2 rounded-lg" type="submit">
-          {isEdit ? "Update Employee" : "Add Employee"}
+          {isLoading?"...":(isEdit ? "Update Employee" : "Add Employee")}
         </button>
       </form>
     </div>
