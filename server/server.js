@@ -112,6 +112,7 @@ app.post('/api/add-employee', async (req, res) => {
     if(!f_Image){
         return res.status(401).json({success:false,msg:"image error"})
     }
+    console.log("image checked now started uploading")
     const result=await cloudinary.v2.uploader.upload(f_Image,{folder:'mern-test'})
     console.log("image added")
     const imgUrl=result.secure_url||null;

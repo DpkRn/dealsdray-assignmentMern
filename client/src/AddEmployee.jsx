@@ -100,7 +100,7 @@ function AddEmployee() {
       }
       reader.onerror=()=>{
         // toast.error("image upload error")
-        alert("image uploaded")
+        alert("image upload error")
       }
     }
   }
